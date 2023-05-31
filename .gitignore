@@ -42,3 +42,7 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 .DS_Store
+
+# Other folders
+scripts
+content/01_journal/data
