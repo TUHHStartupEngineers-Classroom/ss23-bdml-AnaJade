@@ -1,0 +1,66 @@
+---
+title: "Data Acquisition"
+author: "Ana Jade"
+---
+
+The goal of this second challenge is to extract information from the web. This page will explain how this was done.
+
+# Load libraries
+
+```{r}
+# Load libraries
+library(tidyverse) # Main Package - Loads dplyr, purrr, etc.
+library(gtrendsR)
+library(rvest)     # HTML Hacking & Web Scraping
+```
+
+# Get some data via an API
+For this exercise, I chose to get the history of Google searches for Eurovision in the last 3 months. I chose to plot the results for some of my favorite entries by defining the "geo" parameter of the gtrends function. 
+
+```{r}
+res <- gtrends(c("Eurovision Song Contest"),
+               geo=c("DE", "FI", "NO", "SI", "HR"),
+               time = "today 3-m")
+
+```
+
+Here are the correspond ISO codes for the countries that will be plotted: Germany (DE), Finland (FI), Norway (NO), Slovenia (SI), Croatia (HR)
+
+Here is a plot of the results:
+```{r, fig.width=10, fig.height=7}
+plot(res)
+```
+
+
+# Scrape data from a competitor website
+Radon bikes was chosen to perform this analysis. 
+```{r}
+# Define URL
+url_hardtail <- "https://www.radon-bikes.de/mountainbike/hardtail/"
+html_hardtail    <- read_html(url_hardtail)
+```
+
+The SelectorGadget tool was used to get the name of the css nodes for the bike names and bike prices. 
+```{r}
+# Extract bike info
+bike_names <- list(html_hardtail %>% html_nodes(css = ".a-heading--medium") %>%  html_text())
+bike_names
+bike_prices <- list(html_hardtail %>% html_nodes(css = ".currentPrice") %>%  html_text())
+bike_prices
+```
+For some reason, there were some empty xml nodes that were also selected along with the bike prices. This line of code simply eliminates those empty elements.
+```{r}
+# Remove empty elements from bike_prices
+bike_prices <- lapply(bike_prices, function(z){ z[!is.na(z) & z != ""]})
+bike_prices
+```
+Finally, a table can be created, linking bike names and prices.
+```{r}
+# Create table
+bike_infos <- map2_dfr(bike_names, bike_prices, ~ tibble(Name = .x, Price = .y))
+bike_infos
+```
+
+
+
+

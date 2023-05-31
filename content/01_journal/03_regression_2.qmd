@@ -1,0 +1,158 @@
+---
+title: "Data Wrangling"
+author: "Ana Jade"
+---
+
+The goal of this third challenge is to examine patent data. This page will explain how this was done.
+
+# Load libraries
+```{r}
+# Tidyverse
+library(tidyverse)
+library(vroom)
+
+# Data Table
+library(data.table)
+```
+
+# Load data
+The necessary data types used to load the data into their proper format were available in the Patents_DB_dictionary_bulk_downloads.xlsx file. 
+
+First, the patent table was loaded.
+
+```{r}
+# Patent
+col_types <- list(
+  id = col_character(),
+  date = col_date("%Y-%m-%d"),
+  num_claims = col_double()
+)
+
+patent_tbl <- vroom(
+  file       = "data/Patent_data_reduced/patent.tsv", 
+  delim      = "\t", 
+  col_types  = col_types,
+  na         = c("", "NA", "NULL")
+)
+setDT(patent_tbl)
+patent_tbl
+```
+
+Then, the assignee table was loaded.
+```{r}
+# Assignee
+col_types <- list(
+  id = col_character(),
+  type = col_character(),
+  organization = col_character()
+)
+
+assignee_tbl <- vroom(
+  file       = "data/Patent_data_reduced/assignee.tsv", 
+  delim      = "\t", 
+  col_types  = col_types,
+  na         = c("", "NA", "NULL")
+)
+setDT(assignee_tbl)
+assignee_tbl
+```
+
+Next, the patent assignee table was loaded.
+```{r}
+col_types <- list(
+  patent_id = col_character(),
+  assignee_id = col_character()
+)
+
+patent_assignee_tbl <- vroom(
+  file       = "data/Patent_data_reduced/patent_assignee.tsv", 
+  delim      = "\t", 
+  col_types  = col_types,
+  na         = c("", "NA", "NULL")
+)
+setDT(patent_assignee_tbl)
+patent_assignee_tbl
+```
+
+Finally, the ISPC table was loaded.
+```{r}
+# USPC
+col_types <- list(
+  patent_id = col_character(),
+  mainclass_id = col_character(),
+  sequence = col_character()
+)
+
+uspc_tbl <- vroom(
+  file       = "data/Patent_data_reduced/uspc.tsv", 
+  delim      = "\t", 
+  col_types  = col_types,
+  na         = c("", "NA", "NULL")
+)
+setDT(uspc_tbl)
+uspc_tbl
+```
+# Data wrangling
+The reduced dataset was used for this section.
+## Patent Dominance
+This task asks to list the top 10 US companies/corporations with the most patents.
+```{r}
+# 2.1 What US company/corporation has the most patents
+# Create new table with assignee_id | # patents
+patent_nb <- patent_assignee_tbl[, .N, by = .(assignee_id)]
+colnames(patent_nb)[colnames(patent_nb) == "N"] <- "nb_patents"
+
+# Merge patent_nb with assignee table
+merged_assignee_tbl <- assignee_tbl[patent_nb, on=c(id = "assignee_id")]
+merged_assignee_tbl <- merged_assignee_tbl[!is.na(id)]
+setorder(merged_assignee_tbl, cols=-"nb_patents")
+
+# Sort and filter -> US Company/Corporation -> type = 2
+top_US_tbl <- merged_assignee_tbl[type==2]
+top_US_tbl
+```
+As can be seen from the table above, International Business Machines Corporation had the most assigned patents, with a total of 7547.
+
+## Recent patent activity
+This task asks to list the top 10 US companies that had the most patents granted in August 2014.
+```{r}
+# 2.2 Recent patent activity
+# Merge patent + patent_assignee by patent_id
+merged_patent_assignee_tbl <- patent_tbl[patent_assignee_tbl, on=c(id = "patent_id")]
+
+# Filter to keep only August patents
+august_patents <- merged_patent_assignee_tbl[format(date, "%m") == "08"]
+
+# Count nb of patents per company
+patent_nb_august <- august_patents[, .N, by = .(assignee_id)]
+colnames(patent_nb_august)[colnames(patent_nb_august) == "N"] <- "nb_patents"
+
+# Merge patent_nb_august + assignee table by assignee_id
+merged_assignee_august_tbl <- assignee_tbl[patent_nb_august, on=c(id = "assignee_id")]
+merged_assignee_august_tbl <- merged_assignee_august_tbl[!is.na(id)]
+setorder(merged_assignee_august_tbl, cols=-"nb_patents")
+
+# Filter to keep US companies/corporations
+top_US_august_tbl <- merged_assignee_august_tbl[type==2]
+top_US_august_tbl
+```
+As can be seen from the table above, International Business Machines Corporation had the most patents granted in August 2014, with a total of 718.
+
+## Innovation in Tech
+This task asks to list the top 10 companies (worldwide) with the most patents, along with the top 5 USPTO tech main classes.
+
+Here are the top 10 companies with the most patents:
+```{r}
+# 2.3.1 - Top 10 companies (worldwide) with the most patents
+merged_assignee_tbl
+
+```
+Here are the top 5 USPTO main classes:
+```{r}
+# 2.3.2 - Top 5 USPTO tech main classes
+nb_mainclass_tbl <- uspc_tbl[, .N, by = .(mainclass_id)]
+colnames(nb_mainclass_tbl)[colnames(nb_mainclass_tbl) == "N"] <- "nb_patents"
+setorder(nb_mainclass_tbl, cols=-"nb_patents")
+nb_mainclass_tbl[1:5]
+```
+As can be seen from the table above, the main class 257 is the most innovative tech sector, with a total of 40 526 patents filed.
