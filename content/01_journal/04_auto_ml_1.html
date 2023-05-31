@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Ana Jade">
+<title>MyLabJournal - Data Visualization</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/icons/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">MyLabJournal</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-journal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Journal</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">
+<li>
+    <a class="dropdown-item" href="../../content/01_journal/01_tidyverse.qmd">
+ <span class="dropdown-text">01 Tidyverse</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/01_journal/02_data_acquisition.qmd">
+ <span class="dropdown-text">02 Data Acquisition</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/01_journal/03_data_wrangling.qmd">
+ <span class="dropdown-text">03 Data Wrangling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/01_journal/04_data_visualization.qmd">
+ <span class="dropdown-text">04 Data Visualization</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/02_notes/05_class_notes.html">
+ <span class="menu-text">Class notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../content/03_other/06_links.html">
+ <span class="menu-text">Links</span></a>
+  </li>  
+</ul>
+<div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+<li><a href="#load-libraries" id="toc-load-libraries" class="nav-link active" data-scroll-target="#load-libraries"><span class="toc-section-number">1</span>  Load libraries</a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="toc-section-number">2</span>  Load data</a></li>
+  <li><a href="#challenge-1" id="toc-challenge-1" class="nav-link" data-scroll-target="#challenge-1"><span class="toc-section-number">3</span>  Challenge 1</a></li>
+  <li><a href="#challenge-2" id="toc-challenge-2" class="nav-link" data-scroll-target="#challenge-2"><span class="toc-section-number">4</span>  Challenge 2</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Data Visualization</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ana Jade </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header><p>The goal of this fourth challenge is to analize and visualize COVID-19 data. This page will explain how this was done.</p>
+<section id="load-libraries" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Load libraries</h1>
+<div class="cell" data-hash="04_auto_ml_1_cache/html/unnamed-chunk-1_3d93357be3aea04faa5c711706809d91">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Tidyverse</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#&gt; ✔ dplyr     1.1.1     ✔ readr     2.1.4
+#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#&gt; ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+#&gt; ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+#&gt; ✔ purrr     1.0.1     
+#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#&gt; ✖ dplyr::filter() masks stats::filter()
+#&gt; ✖ dplyr::lag()    masks stats::lag()
+#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+</section><section id="load-data" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Load data</h1>
+<div class="cell" data-hash="04_auto_ml_1_cache/html/unnamed-chunk-2_0b6b86b45ca41a50a17b66b207e8a5b4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Load data</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>covid_data_tbl <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://covid.ourworldindata.org/data/owid-covid-data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Rows: 313312 Columns: 67
+#&gt; ── Column specification ────────────────────────────────────────────────────────
+#&gt; Delimiter: ","
+#&gt; chr   (4): iso_code, continent, location, tests_units
+#&gt; dbl  (62): total_cases, new_cases, new_cases_smoothed, total_deaths, new_dea...
+#&gt; date  (1): date
+#&gt; 
+#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.
+#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</section><section id="challenge-1" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Challenge 1</h1>
+<p>The goal of this first challenge is to plot the cumulative COVID-19 vases for a few countries.</p>
+<p>First you start by wrangling the data:</p>
+<div class="cell" data-hash="04_auto_ml_1_cache/html/unnamed-chunk-3_580bb0b6e674ea52000344077e808fd3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>total_cases_over_time <span class="ot">&lt;-</span> covid_data_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="co"># Select appropriate columns</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">select</span>(iso_code,location, date, total_cases) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="co"># Filter based on country</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">filter</span>(location <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Germany"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"France"</span>, <span class="st">"Spain"</span>, <span class="st">"United States"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="co"># Remove blank values</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(total_cases))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then you plot it:</p>
+<div class="cell" data-hash="04_auto_ml_1_cache/html/unnamed-chunk-4_838d9028730f8902e977863f91d2f0b6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>total_cases_over_time <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="co"># Canvas</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total_cases, <span class="at">color =</span> location)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="co"># Geometries </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="co"># Formatting</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">'1 month'</span>, <span class="at">date_labels =</span> <span class="st">"%B-%Y"</span>) <span class="sc">+</span> </span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span><span class="cf">function</span>(x) <span class="fu">sprintf</span>(<span class="st">"%.0fM"</span>, x<span class="sc">/</span><span class="fl">1e6</span>)) <span class="sc">+</span> </span>
+<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="co"># Change colour</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> </span>
+<span id="cb6-13"><a href="#cb6-13"></a>  <span class="co"># Set legend location</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>  <span class="co"># Labels</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-17"><a href="#cb6-17"></a>    <span class="at">title =</span> <span class="st">"COVID-19 confirmed cases worldwide"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    <span class="at">subtitle =</span> <span class="st">"As of 19/04/2022"</span>,</span>
+<span id="cb6-19"><a href="#cb6-19"></a>    <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20"></a>    <span class="at">y =</span> <span class="st">"Total cases"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21"></a>    <span class="at">color =</span> <span class="st">"Countries"</span> <span class="co"># Legend text</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#&gt; ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="04_auto_ml_1_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04_auto_ml_1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="challenge-2" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Challenge 2</h1>
+<p>The goal of this challenge is to view the mortality rate of every country due to COVID-19.</p>
+<p>First you start by wrangling the data:</p>
+<div class="cell" data-hash="04_auto_ml_1_cache/html/unnamed-chunk-5_5fcad34b86f5896b4ce2d7ca675939d4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># 2.1 Data wrangling ----</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># Example: https://www.datanovia.com/en/blog/how-to-create-a-map-using-ggplot2/</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>mortality_tbl <span class="ot">&lt;-</span> covid_data_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="co"># Keep only CAN and DE + others</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="co"># filter(location == c("Canada", "Germany", "United Kingdom", "United States", "Democratic Republic of Congo")) %&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="co"># Select relevant columns</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">select</span>(location, new_deaths_per_million) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="co"># Replace all NAs by zeros</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">new_deaths_per_million =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>  <span class="co"># Get sums</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">group_by</span>(location) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">summarise</span>(<span class="at">total_deaths_per_million =</span> <span class="fu">sum</span>(new_deaths_per_million)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="co"># Add death percentage</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="fu">mutate</span>(<span class="at">total_deaths_perc =</span> total_deaths_per_million<span class="sc">/</span><span class="fl">1e6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="co"># Change location names to match the world map</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  <span class="fu">mutate</span>(<span class="at">location =</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-17"><a href="#cb8-17"></a>    location <span class="sc">==</span> <span class="st">"United Kingdom"</span> <span class="sc">~</span> <span class="st">"UK"</span>,</span>
+<span id="cb8-18"><a href="#cb8-18"></a>    location <span class="sc">==</span> <span class="st">"United States"</span> <span class="sc">~</span> <span class="st">"USA"</span>,</span>
+<span id="cb8-19"><a href="#cb8-19"></a>    location <span class="sc">==</span> <span class="st">"Democratic Republic of Congo"</span> <span class="sc">~</span> <span class="st">"Democratic Republic of the Congo"</span>,</span>
+<span id="cb8-20"><a href="#cb8-20"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> location)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb8-22"><a href="#cb8-22"></a></span>
+<span id="cb8-23"><a href="#cb8-23"></a>mortality_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["location"],"name":[1],"type":["chr"],"align":["left"]},{"label":["total_deaths_per_million"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["total_deaths_perc"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Afghanistan","2":"192.382","3":"0.000192382"},{"1":"Africa","2":"181.508","3":"0.000181508"},{"1":"Albania","2":"1267.976","3":"0.001267976"},{"1":"Algeria","2":"153.243","3":"0.000153243"},{"1":"American Samoa","2":"767.584","3":"0.000767584"},{"1":"Andorra","2":"1991.442","3":"0.001991442"},{"1":"Angola","2":"54.261","3":"0.000054261"},{"1":"Anguilla","2":"755.808","3":"0.000755808"},{"1":"Antigua and Barbuda","2":"1556.952","3":"0.001556952"},{"1":"Argentina","2":"2866.896","3":"0.002866896"},{"1":"Armenia","2":"3146.985","3":"0.003146985"},{"1":"Aruba","2":"2705.253","3":"0.002705253"},{"1":"Asia","2":"345.778","3":"0.000345778"},{"1":"Australia","2":"791.529","3":"0.000791529"},{"1":"Austria","2":"2515.558","3":"0.002515558"},{"1":"Azerbaijan","2":"991.773","3":"0.000991773"},{"1":"Bahamas","2":"2082.951","3":"0.002082951"},{"1":"Bahrain","2":"1043.236","3":"0.001043236"},{"1":"Bangladesh","2":"172.086","3":"0.000172086"},{"1":"Barbados","2":"2105.538","3":"0.002105538"},{"1":"Belarus","2":"746.566","3":"0.000746566"},{"1":"Belgium","2":"2943.589","3":"0.002943589"},{"1":"Belize","2":"1700.010","3":"0.001700010"},{"1":"Benin","2":"12.214","3":"0.000012214"},{"1":"Bermuda","2":"2569.833","3":"0.002569833"},{"1":"Bhutan","2":"26.838","3":"0.000026838"},{"1":"Bolivia","2":"1831.051","3":"0.001831051"},{"1":"Bonaire Sint Eustatius and Saba","2":"1589.538","3":"0.001589538"},{"1":"Bosnia and Herzegovina","2":"5055.176","3":"0.005055176"},{"1":"Botswana","2":"1063.366","3":"0.001063366"},{"1":"Brazil","2":"3262.320","3":"0.003262320"},{"1":"British Virgin Islands","2":"2042.642","3":"0.002042642"},{"1":"Brunei","2":"358.567","3":"0.000358567"},{"1":"Bulgaria","2":"5657.918","3":"0.005657918"},{"1":"Burkina Faso","2":"17.450","3":"0.000017450"},{"1":"Burundi","2":"1.166","3":"0.000001166"},{"1":"Cambodia","2":"182.270","3":"0.000182270"},{"1":"Cameroon","2":"70.648","3":"0.000070648"},{"1":"Canada","2":"1368.643","3":"0.001368643"},{"1":"Cape Verde","2":"699.687","3":"0.000699687"},{"1":"Cayman Islands","2":"538.395","3":"0.000538395"},{"1":"Central African Republic","2":"20.241","3":"0.000020241"},{"1":"Chad","2":"10.912","3":"0.000010912"},{"1":"Chile","2":"3316.133","3":"0.003316133"},{"1":"China","2":"84.977","3":"0.000084977"},{"1":"Colombia","2":"2751.673","3":"0.002751673"},{"1":"Comoros","2":"192.395","3":"0.000192395"},{"1":"Congo","2":"65.121","3":"0.000065121"},{"1":"Cook Islands","2":"117.426","3":"0.000117426"},{"1":"Costa Rica","2":"1807.698","3":"0.001807698"},{"1":"Cote d'Ivoire","2":"29.705","3":"0.000029705"},{"1":"Croatia","2":"4527.102","3":"0.004527102"},{"1":"Cuba","2":"760.768","3":"0.000760768"},{"1":"Curacao","2":"1579.744","3":"0.001579744"},{"1":"Cyprus","2":"1522.252","3":"0.001522252"},{"1":"Czechia","2":"4078.149","3":"0.004078149"},{"1":"Democratic Republic of the Congo","2":"14.775","3":"0.000014775"},{"1":"Denmark","2":"1474.410","3":"0.001474410"},{"1":"Djibouti","2":"168.615","3":"0.000168615"},{"1":"Dominica","2":"1017.062","3":"0.001017062"},{"1":"Dominican Republic","2":"390.372","3":"0.000390372"},{"1":"Ecuador","2":"2000.983","3":"0.002000983"},{"1":"Egypt","2":"223.643","3":"0.000223643"},{"1":"El Salvador","2":"667.568","3":"0.000667568"},{"1":"England","2":"0.000","3":"0.000000000"},{"1":"Equatorial Guinea","2":"109.254","3":"0.000109254"},{"1":"Eritrea","2":"27.934","3":"0.000027934"},{"1":"Estonia","2":"2263.057","3":"0.002263057"},{"1":"Eswatini","2":"1185.828","3":"0.001185828"},{"1":"Ethiopia","2":"61.368","3":"0.000061368"},{"1":"Europe","2":"2770.570","3":"0.002770570"},{"1":"European Union","2":"2738.719","3":"0.002738719"},{"1":"Faeroe Islands","2":"527.132","3":"0.000527132"},{"1":"Falkland Islands","2":"0.000","3":"0.000000000"},{"1":"Fiji","2":"949.724","3":"0.000949724"},{"1":"Finland","2":"1730.536","3":"0.001730536"},{"1":"France","2":"2529.530","3":"0.002529530"},{"1":"French Guiana","2":"1355.991","3":"0.001355991"},{"1":"French Polynesia","2":"2118.911","3":"0.002118911"},{"1":"Gabon","2":"128.525","3":"0.000128525"},{"1":"Gambia","2":"137.493","3":"0.000137493"},{"1":"Georgia","2":"4558.813","3":"0.004558813"},{"1":"Germany","2":"2087.532","3":"0.002087532"},{"1":"Ghana","2":"43.685","3":"0.000043685"},{"1":"Gibraltar","2":"3458.104","3":"0.003458104"},{"1":"Greece","2":"3554.840","3":"0.003554840"},{"1":"Greenland","2":"371.721","3":"0.000371721"},{"1":"Grenada","2":"1897.039","3":"0.001897039"},{"1":"Guadeloupe","2":"2579.850","3":"0.002579850"},{"1":"Guam","2":"2404.184","3":"0.002404184"},{"1":"Guatemala","2":"1132.028","3":"0.001132028"},{"1":"Guernsey","2":"1057.982","3":"0.001057982"},{"1":"Guinea","2":"33.724","3":"0.000033724"},{"1":"Guinea-Bissau","2":"84.075","3":"0.000084075"},{"1":"Guyana","2":"1605.118","3":"0.001605118"},{"1":"Haiti","2":"74.238","3":"0.000074238"},{"1":"High income","2":"2309.345","3":"0.002309345"},{"1":"Honduras","2":"1065.693","3":"0.001065693"},{"1":"Hong Kong","2":"0.000","3":"0.000000000"},{"1":"Hungary","2":"4894.107","3":"0.004894107"},{"1":"Iceland","2":"697.247","3":"0.000697247"},{"1":"India","2":"375.281","3":"0.000375281"},{"1":"Indonesia","2":"586.936","3":"0.000586936"},{"1":"Iran","2":"1651.369","3":"0.001651369"},{"1":"Iraq","2":"570.226","3":"0.000570226"},{"1":"Ireland","2":"1778.694","3":"0.001778694"},{"1":"Isle of Man","2":"1372.242","3":"0.001372242"},{"1":"Israel","2":"1325.405","3":"0.001325405"},{"1":"Italy","2":"3222.412","3":"0.003222412"},{"1":"Jamaica","2":"1254.152","3":"0.001254152"},{"1":"Japan","2":"602.695","3":"0.000602695"},{"1":"Jersey","2":"1453.146","3":"0.001453146"},{"1":"Jordan","2":"1251.293","3":"0.001251293"},{"1":"Kazakhstan","2":"983.230","3":"0.000983230"},{"1":"Kenya","2":"105.390","3":"0.000105390"},{"1":"Kiribati","2":"182.877","3":"0.000182877"},{"1":"Kosovo","2":"1798.964","3":"0.001798964"},{"1":"Kuwait","2":"602.064","3":"0.000602064"},{"1":"Kyrgyzstan","2":"451.114","3":"0.000451114"},{"1":"Laos","2":"89.125","3":"0.000089125"},{"1":"Latvia","2":"3440.900","3":"0.003440900"},{"1":"Lebanon","2":"1987.998","3":"0.001987998"},{"1":"Lesotho","2":"306.195","3":"0.000306195"},{"1":"Liberia","2":"55.655","3":"0.000055655"},{"1":"Libya","2":"944.923","3":"0.000944923"},{"1":"Liechtenstein","2":"2210.657","3":"0.002210657"},{"1":"Lithuania","2":"3519.629","3":"0.003519629"},{"1":"Low income","2":"64.947","3":"0.000064947"},{"1":"Lower middle income","2":"391.304","3":"0.000391304"},{"1":"Luxembourg","2":"1902.304","3":"0.001902304"},{"1":"Macao","2":"0.000","3":"0.000000000"},{"1":"Madagascar","2":"48.126","3":"0.000048126"},{"1":"Malawi","2":"131.614","3":"0.000131614"},{"1":"Malaysia","2":"1092.229","3":"0.001092229"},{"1":"Maldives","2":"601.350","3":"0.000601350"},{"1":"Mali","2":"32.876","3":"0.000032876"},{"1":"Malta","2":"1565.674","3":"0.001565674"},{"1":"Marshall Islands","2":"408.727","3":"0.000408727"},{"1":"Martinique","2":"2998.542","3":"0.002998542"},{"1":"Mauritania","2":"210.475","3":"0.000210475"},{"1":"Mauritius","2":"808.048","3":"0.000808048"},{"1":"Mayotte","2":"576.465","3":"0.000576465"},{"1":"Mexico","2":"2620.175","3":"0.002620175"},{"1":"Micronesia (country)","2":"569.287","3":"0.000569287"},{"1":"Moldova","2":"3702.436","3":"0.003702436"},{"1":"Monaco","2":"1836.068","3":"0.001836068"},{"1":"Mongolia","2":"628.560","3":"0.000628560"},{"1":"Montenegro","2":"4508.197","3":"0.004508197"},{"1":"Montserrat","2":"1812.824","3":"0.001812824"},{"1":"Morocco","2":"435.072","3":"0.000435072"},{"1":"Mozambique","2":"68.003","3":"0.000068003"},{"1":"Myanmar","2":"359.752","3":"0.000359752"},{"1":"Namibia","2":"1593.731","3":"0.001593731"},{"1":"Nauru","2":"78.796","3":"0.000078796"},{"1":"Nepal","2":"393.843","3":"0.000393843"},{"1":"Netherlands","2":"1309.099","3":"0.001309099"},{"1":"New Caledonia","2":"1082.922","3":"0.001082922"},{"1":"New Zealand","2":"557.940","3":"0.000557940"},{"1":"Nicaragua","2":"35.268","3":"0.000035268"},{"1":"Niger","2":"11.994","3":"0.000011994"},{"1":"Nigeria","2":"14.470","3":"0.000014470"},{"1":"Niue","2":"0.000","3":"0.000000000"},{"1":"North America","2":"2672.342","3":"0.002672342"},{"1":"North Korea","2":"0.000","3":"0.000000000"},{"1":"North Macedonia","2":"4622.206","3":"0.004622206"},{"1":"Northern Cyprus","2":"0.000","3":"0.000000000"},{"1":"Northern Ireland","2":"0.000","3":"0.000000000"},{"1":"Northern Mariana Islands","2":"827.052","3":"0.000827052"},{"1":"Norway","2":"1011.145","3":"0.001011145"},{"1":"Oceania","2":"598.609","3":"0.000598609"},{"1":"Oman","2":"1011.373","3":"0.001011373"},{"1":"Pakistan","2":"129.952","3":"0.000129952"},{"1":"Palau","2":"497.678","3":"0.000497678"},{"1":"Palestine","2":"1087.171","3":"0.001087171"},{"1":"Panama","2":"1956.142","3":"0.001956142"},{"1":"Papua New Guinea","2":"66.960","3":"0.000066960"},{"1":"Paraguay","2":"2931.809","3":"0.002931809"},{"1":"Peru","2":"6477.644","3":"0.006477644"},{"1":"Philippines","2":"575.169","3":"0.000575169"},{"1":"Pitcairn","2":"0.000","3":"0.000000000"},{"1":"Poland","2":"3000.737","3":"0.003000737"},{"1":"Portugal","2":"2599.686","3":"0.002599686"},{"1":"Puerto Rico","2":"1823.169","3":"0.001823169"},{"1":"Qatar","2":"255.990","3":"0.000255990"},{"1":"Reunion","2":"949.640","3":"0.000949640"},{"1":"Romania","2":"3467.691","3":"0.003467691"},{"1":"Russia","2":"2756.607","3":"0.002756607"},{"1":"Rwanda","2":"106.596","3":"0.000106596"},{"1":"Saint Barthelemy","2":"454.794","3":"0.000454794"},{"1":"Saint Helena","2":"0.000","3":"0.000000000"},{"1":"Saint Kitts and Nevis","2":"964.749","3":"0.000964749"},{"1":"Saint Lucia","2":"2273.884","3":"0.002273884"},{"1":"Saint Martin (French part)","2":"1445.818","3":"0.001445818"},{"1":"Saint Pierre and Miquelon","2":"339.848","3":"0.000339848"},{"1":"Saint Vincent and the Grenadines","2":"1192.765","3":"0.001192765"},{"1":"Samoa","2":"139.398","3":"0.000139398"},{"1":"San Marino","2":"3710.275","3":"0.003710275"},{"1":"Sao Tome and Principe","2":"351.830","3":"0.000351830"},{"1":"Saudi Arabia","2":"264.803","3":"0.000264803"},{"1":"Scotland","2":"0.000","3":"0.000000000"},{"1":"Senegal","2":"113.790","3":"0.000113790"},{"1":"Serbia","2":"2626.440","3":"0.002626440"},{"1":"Seychelles","2":"1605.448","3":"0.001605448"},{"1":"Sierra Leone","2":"14.625","3":"0.000014625"},{"1":"Singapore","2":"310.581","3":"0.000310581"},{"1":"Sint Maarten (Dutch part)","2":"2081.851","3":"0.002081851"},{"1":"Slovakia","2":"3750.713","3":"0.003750713"},{"1":"Slovenia","2":"4417.303","3":"0.004417303"},{"1":"Solomon Islands","2":"211.245","3":"0.000211245"},{"1":"Somalia","2":"77.345","3":"0.000077345"},{"1":"South Africa","2":"1712.940","3":"0.001712940"},{"1":"South America","2":"3104.476","3":"0.003104476"},{"1":"South Korea","2":"669.537","3":"0.000669537"},{"1":"South Sudan","2":"12.660","3":"0.000012660"},{"1":"Spain","2":"2548.716","3":"0.002548716"},{"1":"Sri Lanka","2":"772.923","3":"0.000772923"},{"1":"Sudan","2":"107.636","3":"0.000107636"},{"1":"Suriname","2":"2273.290","3":"0.002273290"},{"1":"Sweden","2":"2301.030","3":"0.002301030"},{"1":"Switzerland","2":"1603.078","3":"0.001603078"},{"1":"Syria","2":"142.990","3":"0.000142990"},{"1":"Taiwan","2":"0.000","3":"0.000000000"},{"1":"Tajikistan","2":"12.528","3":"0.000012528"},{"1":"Tanzania","2":"12.922","3":"0.000012922"},{"1":"Thailand","2":"475.781","3":"0.000475781"},{"1":"Timor","2":"102.912","3":"0.000102912"},{"1":"Togo","2":"32.770","3":"0.000032770"},{"1":"Tokelau","2":"0.000","3":"0.000000000"},{"1":"Tonga","2":"112.289","3":"0.000112289"},{"1":"Trinidad and Tobago","2":"2867.287","3":"0.002867287"},{"1":"Tunisia","2":"2380.397","3":"0.002380397"},{"1":"Turkey","2":"1188.403","3":"0.001188403"},{"1":"Turkmenistan","2":"0.000","3":"0.000000000"},{"1":"Turks and Caicos Islands","2":"831.026","3":"0.000831026"},{"1":"Tuvalu","2":"0.000","3":"0.000000000"},{"1":"Uganda","2":"76.807","3":"0.000076807"},{"1":"Ukraine","2":"2828.978","3":"0.002828978"},{"1":"United Arab Emirates","2":"248.914","3":"0.000248914"},{"1":"UK","2":"3345.511","3":"0.003345511"},{"1":"USA","2":"3339.125","3":"0.003339125"},{"1":"United States Virgin Islands","2":"1316.831","3":"0.001316831"},{"1":"Upper middle income","2":"1052.941","3":"0.001052941"},{"1":"Uruguay","2":"2227.948","3":"0.002227948"},{"1":"Uzbekistan","2":"47.348","3":"0.000047348"},{"1":"Vanuatu","2":"42.844","3":"0.000042844"},{"1":"Vatican","2":"0.000","3":"0.000000000"},{"1":"Venezuela","2":"206.888","3":"0.000206888"},{"1":"Vietnam","2":"440.339","3":"0.000440339"},{"1":"Wales","2":"0.000","3":"0.000000000"},{"1":"Wallis and Futuna","2":"603.656","3":"0.000603656"},{"1":"Western Sahara","2":"0.000","3":"0.000000000"},{"1":"World","2":"870.517","3":"0.000870517"},{"1":"Yemen","2":"64.081","3":"0.000064081"},{"1":"Zambia","2":"202.768","3":"0.000202768"},{"1":"Zimbabwe","2":"348.753","3":"0.000348753"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>The title of the “location” column has to be changed to “region” to match the world map:</p>
+<div class="cell" data-hash="04_auto_ml_1_cache/html/unnamed-chunk-6_726b2ac9170a55f5c77423648255d4c9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Change location column name to match world map</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">colnames</span>(mortality_tbl)[<span class="fu">colnames</span>(mortality_tbl) <span class="sc">==</span> <span class="st">"location"</span>] <span class="ot">=</span> <span class="st">"region"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, you plot the results:</p>
+<div class="cell" data-hash="04_auto_ml_1_cache/html/unnamed-chunk-7_fe456dae9fb910ba2f5991dc0a6c55e7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Change location column name to match world map</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">colnames</span>(mortality_tbl)[<span class="fu">colnames</span>(mortality_tbl) <span class="sc">==</span> <span class="st">"location"</span>] <span class="ot">=</span> <span class="st">"region"</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># 2.2 Plot ----</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co"># Get world map</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>world <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"world"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co"># Join map and data</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>deaths_map <span class="ot">&lt;-</span> <span class="fu">left_join</span>(mortality_tbl, world, <span class="at">by=</span><span class="st">"region"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co"># Plot results</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="fu">ggplot</span>(deaths_map, <span class="fu">aes</span>(long, lat, <span class="at">group=</span>group)) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>  <span class="fu">geom_polygon</span>(<span class="fu">aes</span>(<span class="at">fill =</span> total_deaths_perc), <span class="at">color =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>  <span class="co"># Format legend</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">name=</span><span class="st">"Mortality rate"</span>, <span class="at">labels=</span>scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a>  <span class="co"># Labels</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-16"><a href="#cb10-16"></a>    <span class="at">title =</span> <span class="st">"Confirmed COVID-19 deaths relative to the size of the population"</span>,</span>
+<span id="cb10-17"><a href="#cb10-17"></a>    <span class="at">subtitle =</span> <span class="st">"Around 6.2 Million confirmed COVID-19 deaths worldwide"</span>,</span>
+<span id="cb10-18"><a href="#cb10-18"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb10-19"><a href="#cb10-19"></a>    <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb10-20"><a href="#cb10-20"></a>    <span class="at">color =</span> <span class="st">"Mortality rate"</span> <span class="co"># Legend text</span></span>
+<span id="cb10-21"><a href="#cb10-21"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="04_auto_ml_1_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="04_auto_ml_1_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></a></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":true,"selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});</script>
+
+
+</body></html>
