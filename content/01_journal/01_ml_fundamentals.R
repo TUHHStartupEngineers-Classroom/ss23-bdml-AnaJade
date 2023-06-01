@@ -1,5 +1,5 @@
 # Data Science at TUHH ------------------------------------------------------
-# TIDYVERSE CHALLENGE ----
+# ML Fundamentals ----
 
 # 1.0 Load libraries ----
 library(tidyverse)
