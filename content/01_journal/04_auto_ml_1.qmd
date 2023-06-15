@@ -1,0 +1,142 @@
+---
+title: "Automated Machine Learning with H2O (I)"
+author: "Ana Jade"
+---
+
+Employee attrition is defined as employee quitting. The goal of this data visualization is to try and see if you can predict if an employee is about to quit.
+
+# Load libraries
+```{r}
+library(tidyverse)
+library(readxl)
+library(skimr)
+library(GGally)
+
+```
+
+# Load data
+```{r}
+employee_attrition_tbl <- read_csv("data/04_data/datasets-1067-1925-WA_Fn-UseC_-HR-Employee-Attrition.csv")
+employee_attrition_tbl
+```
+Now get the definitions:
+```{r}
+path_data_definitions <- "data/04_data/data_definitions.xlsx"
+definitions_raw_tbl   <- read_excel(path_data_definitions, sheet = 1, col_names = FALSE)
+```
+
+# View link between different attributes
+
+First, create a function to plot the ggpairs.
+```{r}
+plot_ggpairs <- function(data, color = NULL, density_alpha = 0.5) {
+  
+  color_expr <- enquo(color)
+  
+  if (rlang::quo_is_null(color_expr)) {
+    
+    g <- data %>%
+      ggpairs(lower = "blank") 
+    
+  } else {
+    
+    color_name <- quo_name(color_expr)
+    
+    g <- data %>%
+      ggpairs(mapping = aes_string(color = color_name), 
+              lower = "blank", legend = 1,
+              diag = list(continuous = wrap("densityDiag", 
+                                            alpha = density_alpha))) +
+      theme(legend.position = "bottom")
+  }
+  
+  return(g)
+  
+}
+```
+## Compensation features
+The following figure presents the interaction between compensation features and attrition.
+```{r, fig.width=10, fig.height=7}
+employee_attrition_tbl %>%
+  select(Attrition, contains("income"), contains("rate"), contains("salary"), contains("stock")) %>%
+  plot_ggpairs(Attrition)
+```
+**1 - What can you deduce about the interaction between Monthly Income and Attrition?**
+c. Those that are leaving have a lower Monthly Income 
+
+**2 - What can you deduce about the interaction between Percent Salary Hike and Attrition?**
+d. It's difficult to deduce anything based on the visualization
+
+**3 - What can you deduce about the interaction between Stock Option Level and Attrition?**
+c. It's difficult to deduce anything based on the visualization
+
+## Survey Results
+The following figure presents the interaction between survey results and attrition.
+```{r, fig.width=10, fig.height=7}
+employee_attrition_tbl %>%
+  select(Attrition, contains("satisfaction"), contains("life")) %>%
+  plot_ggpairs(Attrition)
+```
+
+**4 - What can you deduce about the interaction between Environment Satisfaction and Attrition?**
+a. A higher proportion of those leaving have a low environment satisfaction level
+
+**5 - What can you deduce about the interaction between Work Life Balance and Attrition**
+b. Those that are staying have a higher density of 2's and 3's
+
+## Performance data
+The following figure presents the interaction between performance data and attrition.
+```{r, fig.width=10, fig.height=7}
+employee_attrition_tbl %>%
+  select(Attrition, contains("performance"), contains("involvement")) %>%
+  plot_ggpairs(Attrition)
+```
+
+**6 - What Can you deduce about the interaction between Job Involvement and Attrition?**
+a. Those that are leaving have a lower density of 3's and 4's
+
+## Work-Life Features
+The following figure presents the interaction between work-life features and attrition.
+```{r, fig.width=10, fig.height=7}
+employee_attrition_tbl %>%
+  select(Attrition, contains("overtime"), contains("travel")) %>%
+  plot_ggpairs(Attrition)
+```
+
+**7 - What can you deduce about the interaction between Over Time and Attrition?**
+b. The proportion of those staying that are working Over Time are high compared to those that are not staying
+
+## Training and Education
+The following figure presents the interaction between training and education,  and attrition.
+```{r, fig.width=10, fig.height=7}
+employee_attrition_tbl %>%
+  select(Attrition, contains("training"), contains("education")) %>%
+  plot_ggpairs(Attrition)
+```
+
+**8 - What can you deduce about the interaction between Training Times Last Year and Attrition?**
+b. People that leave tend to have less annual trainings
+
+## Time-based features
+The following figure presents the interaction between time-based features  and attrition.
+```{r, fig.width=10, fig.height=7}
+employee_attrition_tbl %>%
+  select(Attrition, contains("years")) %>%
+  plot_ggpairs(Attrition)
+```
+
+**9 - What can you deduce about the interaction between Years At Company and Attrition?**
+b. People that leave tend to have less working years at the company
+
+**10 - What can you deduce about the interaction between Years Since Last Promotion and Attrition?**
+b. Those that are leaving have fewer years since last promotion than those that are staying
+
+
+
+
+
+
+
+
+
+
